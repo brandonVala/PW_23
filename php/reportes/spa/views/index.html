@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel ="stylesheet" href="../../../../LibCSS/bootstrap.css">
+    <script src="../../../../Libjs/jquery-1.9.1.min.js"></script>
+    <script src="../../../../Libjs/bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <style>
+        .zoom:hover{
+            transform: scale(1.2);
+        }
+    </style>
+    <script>
+        function fillTable() {
+            $.ajax({
+                url:'../controllers/user_db_controller.php',
+                method:'GET',
+                data:'',
+                success: function(data) {
+                    //console.log(data);
+                    let r= jQuery.parseJSON(data);
+                    $("#miTabla tbody").empty();
+                    for(let i=0;i<r.length;i++){
+                        //console.log(r[i].ncontrol +""+r[i].name);
+                        let del=`del${i}`;
+                        let up=`up${i}`;
+                        let row=`
+                        <tr>
+                            <td>
+                                <span id='ncontrol${i}'>${r[i].ncontrol}</span>
+                            </td>
+                            <td>
+                                <span id='name${i}'contenteditable='true'>${r[i].name}</span>
+                            </td>
+                                <td>
+                                    <button class='btn btn-danger zoom' id='${del}' onclick='deleteD(this)'><b>X</b></button>
+                                    <button class='btn btn-warning zoom text-white' id='${up}' onclick='update(this)'>U</button>
+                                </td>
+                        </tr>
+                        `;
+                        $("#miTabla tbody").append(row);
+                    }
+                } 
+            });
+        }
+        fillTable();
+        function deleteD(e) {
+            let end = e.id.substr(3);
+            /*console.log($('#ncontrol' + end).text());
+            console.log($('#name'+ end).text());*/
+            const data = {
+                ncontrol:$('#ncontrol' + end).text()
+            };
+
+            $.ajax({
+                url:'../controllers/user_db_controller.php',
+                method:'DELETE',
+                data: JSON.stringify(data),
+                success: function (data) {
+                    swal(data);
+                    console.log(data);
+                    fillTable();
+                }
+            });
+
+        }
+        function update(e) {
+            let end = e.id.substr(2);
+            const data = {
+                ncontrol: $('#ncontrol' + end).text(),
+                name: $('#name' + end).text()
+            };
+
+            $.ajax({
+                url: '../controllers/user_db_controller.php',
+                method: 'PUT',
+                //contentType: "application/json; charset=utf-8",
+                //dataType: 'json',
+                data: JSON.stringify(data),
+                success: function (data) {
+                    swal(data);
+                    console.log(data);
+                    fillTable();
+                }
+            });
+        }
+
+        $(document).ready(
+            () =>{
+                $('#btnAdd').click(()=> {
+                    const data={
+                        ncontrol: $('#ncontrol').val(),
+                        name: $('#name').val()
+                    };
+
+                    $.ajax({
+                    url:'../controllers/user_db_controller.php',
+                    method:'POST',
+                    data: JSON.stringify(data),
+                    success: function (data) {
+                        swal(data);
+                        console.log(data);
+                        fillTable();
+                    }
+                    });
+                });
+            }
+        );
+    </script>
+</head>
+<body>
+    <div class="container mt-3">
+
+        <div class="card" id="panel">
+            <div class="card-header">
+                CRUD Operations
+            </div>
+            <div class="card-body">
+                <label>ncontrol:
+                    <input type="text" class="form-control"
+                    id="ncontrol">
+                </label>
+                <label>name:
+                    <input type="text" class="form-control"
+                    id="name">
+                </label>
+
+                <button class="btn btn-primary zoom">New</button>
+                <button class="btn btn-success zoom" id="btnAdd">Add</button>
+
+                <table class="table table-condensed" id="miTabla">
+                    <thead>
+                        <th>ncontrol</th>
+                        <th>name</th>
+                        <th>Operations</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </script>
+    
+</body>
+</html>

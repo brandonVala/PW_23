@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../Libjs/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="../LibCSS/bootstrap.css">
+    <title>Document</title>
+    <script>
+        $(document).ready(() =>{
+            //Leer sobre Metodos POST,GET,PUT,DELETE
+            //Leer datos con Get\
+           $('#btnLeer').click(() => {
+            alert('hola')
+              $.ajax({
+                url: 'sesion3.php',method: 'GET',
+                success:function (data) {
+                    console.log(data);
+                    //"data" es texto
+                    let datos = JSON.parse(data);
+                    console.log(data.nombre);
+                    console.log(datos.nombre);
+                    console.log(datos.materias.mat1);
+                    //'datos' es un objeto
+                    $("#pizarra").html(data);
+                }
+              });
+           });
+           //mandar datos con POST
+           $("#btnEscribir").click(()=> {
+               $.ajax({
+                url:'sesion3.php',
+                method:'POST',
+                data:{'nombre': $("#nom").val(),'ap': $('#apellido').val()},
+                success:function(data){
+                    $('#pizarra').html(data);
+                }
+               });
+           });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-info" id="btnLeer">
+                    Leer texto
+                </button>
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="nom" class="form-control" placeholder="nombre">
+                <input type="text" id="apellido" class="form-control" placeholder="apellido">
+                <button id="btnEscribir" class="btn btn-success">
+                    Enviar peticion
+                </button>
+            </div>
+        </div>
+       <div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-4">
+    <label id="pizarra" class="form-control">
+    </label>
+       </div>
+       <div class="col-md-4">
+        </div>
+       </div>
+    </div>
+</body>
+</html>

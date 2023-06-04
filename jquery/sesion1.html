@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery sesion 1</title>
+    <link rel ="stylesheet" href="../LibCSS/bootstrap.css">
+    <script src="../Libjs/jquery-1.9.1.min.js"></script>
+    <script>
+        $(document).ready(
+          () => {
+            //alert('Documento cargado en su totalidad');
+            $('#btnBorder').click(() => {
+                //alert('hizo click en btnBorder');
+                $('#miDiv').css('border','2px solid red');
+                $('#miDiv').html("Hizo click en btnBorder");
+            });
+           $('#primero').focus();
+
+           $('input').focus( function (){
+               $(this).css('background','#ff0');
+           });
+
+           $('input').blur( function (){
+               $(this).css('background','#aaa');
+           });
+
+           /*$('input').focusout( function (){
+               $(this).css('background','#aaa');
+           });*/
+
+        });
+$(document).keypress(function(e){
+    $('#resultado').text($('#resultado').text() + String.fromCharCode(e.which));
+});
+        
+    </script>
+</head>
+<body>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <button id="btnBorder" class="btn btn-danger">
+                Agregar borde</button>
+            </div>
+            <div class="col-md-10">
+                <div id="miDiv">jQuery</div>
+            </div>
+    </div>
+
+    <div class ="row">
+        <div class="col-md-12">
+            <input type="text" id="primero">
+            <input type="text">
+            <input type="text">
+            <input type="text">
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                Presione algunas teclas
+            </div>
+            <div class="card-body">
+                <label id="resultado"class="form-control">
+                </label>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

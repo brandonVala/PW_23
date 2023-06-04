@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../LibCSS/bootstrap.css">
+    <script src="../Libjs/jquery-1.9.1.min.js"></script>
+    <script>
+       $(document).ready(() => {
+            $("#btnSuma").click(() => {
+                let url = `sesion1_1.php?a=${$('#a').val()}&b=${$('#b').val()}`;
+                $.ajax({
+                    url: url,
+                    method: 'get',
+                    success: function (data) {
+                        alert(data);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+            <div class="col-md-8">
+                a:<input type="#" id="a"
+                class="form-control">
+                b:<input type="#" id="b"
+                class="form-control">
+                </div>
+                <div class="col-md-2 col-sm-8">
+                    <button class="btn btn-success" id="btnSuma">Sumar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<center>
+<br>
+<h1>
+    Cora González Ramírez
+</h1>
+</br>
+</center>

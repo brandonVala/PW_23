@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesion1 Javascript</title>
+    <link rel="stylesheet" href="../LibCSS/bootstrap.css">
+    <script type="text/javascript">
+        //alert('Hola Mundo');
+        //let nombre = "Hola Mundo";
+       // alert(nombre);
+      //  document.write("Se esta ejecutando js")
+        //console.log("Se esta ejecutando js")
+    </script>
+
+<script src="sesion1.js"></script>
+<style>
+    #degradado {
+        box-shadow: 15px 15px 10px #888;
+        height: 270px;
+        border: lightblue 5px solid;
+        border-radius: 10px 10px ;
+    }
+    </style>
+    <div class="countainer">
+        <div class="card">
+            <div class="card-header">
+                Encabezado
+            </div>
+            <div class="card-body" id="miDiv">
+                <label>Nombre:</label>
+                <input type="text" id="txtNombre"
+                class="form-control">
+                <br>
+                <label>Apellido</label>
+                <input type="text" id="txtApellido"
+                class="form-control">
+                <br>
+                <input type="button" value="Saludar"
+                class="btn btn-success" onclick="cambiarColor()">
+                <input type="color" id ="miColor" onchange="cambiarColor()">
+            </div>
+            <div class="card-footer">
+                Pie de card
+            </div>
+        </div>
+    </div>
+    <input type="color" id="color1"
+    onchange="crearDegradado()">
+
+    <input type="color" id="color2"
+    onchange="crearDegradado()">
+
+    <div id="degradado">
+    </div>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="../libcss/bootstrap.css">
+  <script src="../libjs/jquery-3.1.1.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    function operaciones() {
+      var op = document.getElementById('op').value;
+      var a = document.getElementById('n1').value;
+      var b = document.getElementById('n2').value;
+      a = parseInt(a, 10);
+      b = parseInt(b, 10);
+      switch (op) {
+        case "+":
+          var s = a + b;
+          swal(a.toString() + " + " + b.toString() + " = " + s.toString());
+          break;
+        case "-":
+          var s = a - b;
+          swal(a.toString() + " - " + b.toString() + " = " + s.toString());
+          break;
+        case "*":
+          var s = a * b;
+          swal(a.toString() + " * " + b.toString() + " = " + s.toString());
+          break;
+        case "/":
+          if (b == 0) {
+            swal("No hay division con cero");
+          } else {
+            var s = a / b;
+            swal(a.toString() + " / " + b.toString() + " = " + s.toString());
+          }
+          break;
+      }
+      document.getElementById('op').value = 'd';
+      document.getElementById('n1').value = "";
+      document.getElementById('n2').value = "";
+      //swal();
+    }
+
+    function multiplicar() {
+      var tabla = document.getElementById('tabla').value;
+      var pizarra = document.getElementById('resultado');
+      pizarra.innerHTML = "";
+      for (i = 0; i <= 10; i++) {
+        pizarra.innerHTML += tabla + "*" + i + '=' + tabla * i + "<br>";
+      }
+      pizarra.style.width = "120px";
+      pizarra.style.height = "300px";
+      //alert(i +"*" + tabla);
+    }
+    function procesar() {
+      let text = document.getElementById('txtNumeros').value;
+      let nums = text.split(',');
+
+      let msg = '';
+      for (i = 0; i < nums.length; i++)
+        msg += nums[i] + '<br>';
+      let numeros = nums.map(
+        function (n) {
+          return parseInt(n, 10);
+        });
+      //hallar promedio, mediana, moda , desv. estandar, varianza 
+      let suma = 0;
+      for (i = 0; i < numeros.length; i++) {
+        suma += numeros[i];
+      }
+      suma = suma / numeros.length;
+      msg = 'Promedio: ' + suma;
+
+      numeros.sort((a, b) => {
+        if (a == b)
+          return 0;
+        else
+          return a < b ? 1 : -1;
+      }); 
+      
+      //ordena numeros de menor a mayor
+
+      /*numeros.forEach(function (element) {
+        alert(element);
+      });*/
+      /*numeros.forEach((element) => {
+        alert(element);
+      });*/
+      /***Calcular la moda**/
+      var numsCon = [];
+      var numAnt = 0;
+      for (i = 0; i < numeros.length; i++) {
+        var numAct = numeros[i];
+        if (i == 0) {
+          numsCon.push([numAct, 0]);
+        } else if (numAnt != numAct) {
+          numsCon.push([numAct, 0]);
+        }
+        numAnt = numAct;
+      }
+      //contar el numero de veces que se repite el numero
+      for (i = 0; i < numeros.length; i++) {
+        let numAct = numeros[i];
+        for (j = 0; j < numsCon.length; j++) {
+          if (numAct == numsCon[j][0]) {
+            numsCon[j][1] += 1;
+            continue;
+          }
+        }
+      }
+      //mostrar la moda al usuario
+      let max = numsCon[0];
+      let moda = "";
+      numsCon.forEach(a => {
+        if (max[1] == a[1]) {
+          moda += "Moda: " + a[0] + " se repite " + a[1] + "<br>";
+        }
+      });
+      // (a[1]<b[1])?1:-1; 
+      // if(a[1]<b[1])
+      //   return 1;
+      // else
+      //   return -1;
+      /*numeros.forEach(imprime);
+      function imprime(element){
+        alert(element);
+      }*/
+      //funcion con nombre
+      //function nombre(argumentos){ }
+      //funcion anomina
+      //function (argumentos){ }
+      //funcion lambda
+      //(argumentos)=>{ }
+
+      msg += "<br>" + numeros.toString();
+      msg += "<br>";
+      msg += moda;
+      document.getElementById('res').innerHTML = msg;
+      //revision de programa martes y miercoles
+/*let arr = [1,2,3,4];
+console.log(arr[arr.length-1]);
+console.log(arr.at(-1));*/
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- <div class="row">
+      <div class="input-group-sm">
+        <div class="alert alert-primary">
+          Sentencias de selección
+        </div>
+        <label for="n1">
+          Num 1:
+        </label>
+        <input type="text" class="form-control" id="n1">
+  
+        <label for="n2">
+          Num 2:
+        </label>
+        <input type="text" class="form-control" id="n2">
+      </div>
+  
+      <select id="op" class="form-control" onchange="operaciones();">
+        <option value="d">Seleccione una operación:</option>
+        <option value="+">Suma</option>
+        <option value="-">Resta</option>
+        <option value="*">Producto</option>
+        <option value="/">Division</option>
+      </select>
+    </div> -->
+
+    <div class="card">
+      <div class="card-header">
+        Sentencias de selección
+      </div>
+      <div class="card-body">
+        <label for="n1">
+          Num 1:
+        </label>
+        <input type="text" class="form-control" id="n1">
+
+        <label for="n2">
+          Num 2:
+        </label>
+        <input type="text" class="form-control" id="n2">
+      </div>
+      <div class="input-group-sm mb-3" style="margin:auto">
+        <select id="op" class="form-control" onchange="operaciones();">
+          <option value="d">Seleccione una operación:</option>
+          <option value="+">Suma</option>
+          <option value="-">Resta</option>
+          <option value="*">Producto</option>
+          <option value="/">Division</option>
+        </select>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      Sentencia for
+    </div>
+    <div class="card-body">
+      <label>Escriba la tabla de multipilicación que quiera:
+        <input type="text" id="tabla" class="form-control">
+      </label>
+      <button class="btn btn-primary" onclick="multiplicar()">
+        Ejecutar
+      </button>
+      <label class="form-control" id="resultado">
+
+      </label>
+    </div>
+  </div>
+  <!--
+   investigar: moda, mediana, promedio, desv. estandar, varianza 
+  -->
+  <div class="card m-5">
+    <div class="card-header">
+      Promedio, mediana, moda, Varianza y Desviación estándar
+    </div>
+    <div class="card-body">
+
+      <input type="text" id="txtNumeros" class="form-control">
+
+      <button class="btn btn-primary" onclick="procesar()">
+        Procesar
+      </button>
+
+      <label class="form-control" id="res">
+
+      </label>
+    </div>
+  </div>
+
+  </div>
+</body>
+
+</html>
